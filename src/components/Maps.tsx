@@ -25,7 +25,10 @@ export function Maps({ center, position, radius, enableRadius }: MapsProps) {
       style={{ height: '100vh', width: '100%' }}
       onClick={handleMapClick}
     >
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+      <TileLayer
+        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        crossOrigin={true}
+      />
 
       {position.latitude !== 0 && (
         <Marker
