@@ -13,10 +13,17 @@ interface MapsProps {
   };
   radius: number;
   enableRadius: boolean;
+  handleMapClick: (event: any) => void;
 }
 
-export function Maps({ center, position, radius, enableRadius }: MapsProps) {
-  const { mapIcon, handleMapClick } = useLeaflet();
+export function Maps({
+  center,
+  position,
+  radius,
+  enableRadius,
+  handleMapClick,
+}: MapsProps) {
+  const { mapIcon } = useLeaflet();
 
   return (
     <Map
@@ -27,6 +34,7 @@ export function Maps({ center, position, radius, enableRadius }: MapsProps) {
     >
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         crossOrigin={true}
       />
 
