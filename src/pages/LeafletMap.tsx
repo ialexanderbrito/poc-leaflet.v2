@@ -10,10 +10,12 @@ export function LeafletMap() {
   const {
     enableRadius,
     handleSaveLocation,
+    center,
     position,
     radius,
     setEnableRadius,
     setRadius,
+    handleMapClick,
   } = useLeaflet();
 
   return (
@@ -36,10 +38,11 @@ export function LeafletMap() {
       </Card>
 
       <Maps
-        center={position}
+        center={center}
         position={position}
         radius={radius}
         enableRadius={enableRadius}
+        handleMapClick={handleMapClick}
       />
     </>
   );
