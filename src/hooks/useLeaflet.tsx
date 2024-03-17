@@ -31,8 +31,25 @@ export function useLeaflet() {
   function handleSaveLocation() {
     localStorage.setItem('@maps:latitude', String(position.latitude));
     localStorage.setItem('@maps:longitude', String(position.longitude));
-    localStorage.setItem('@maps:radius', String(radius));
 
+    if (!enableRadius) {
+      localStorage.removeItem('@maps:radius');
+      Swal.fire({
+        title: 'Localização salva!',
+        text: `Você salvou a localização: \nLatitude: ${position.latitude}; \nLongitude: ${position.longitude}.`,
+        html:
+          '<br>Latitude: ' +
+          position.latitude +
+          '<br>Longitude: ' +
+          position.longitude,
+        icon: 'success',
+        confirmButtonText: 'Ok',
+        confirmButtonColor: 'blueviolet',
+      });
+      return;
+    }
+
+    localStorage.setItem('@maps:radius', String(radius));
     Swal.fire({
       title: 'Localização salva!',
       text: `Você salvou a localização: \nLatitude: ${position.latitude}; \nLongitude: ${position.longitude}. \nCom raio de ${convertMeterToKilometer(radius)} km`,
@@ -88,8 +105,23 @@ export function useLeaflet() {
         latitude: Number(latitude),
         longitude: Number(longitude),
       });
+
       setRadius(Number(radius));
       setEnableRadius(true);
+    }
+
+    if (latitude && longitude && !radius) {
+      setPosition({
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+      });
+      setCenter({
+        latitude: Number(latitude),
+        longitude: Number(longitude),
+      });
+
+      setRadius(1000);
+      setEnableRadius(false);
     }
   }, []);
 
